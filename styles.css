@@ -24,13 +24,14 @@
         background-color: skyblue;
         width: 112px;
     }
-    
+
     #complete-goal {
         border-radius: 20px;
         padding: 10px;
         border: none;
         background-color: lightgreen;
         max-width: 50%;
+    }
 }
 
 button, .goal-history-item {
