@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Tracker V2</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <div id="app">
+        <h2 id="appheading">Welcome to goal tracking application</h2>
+        <br>
+
+        <div id="goal-form">
+            <textarea name="" id="goalname" rows="4" cols="40" 
+            placeholder="enter goal, example i want to complete this project by today"
+            ></textarea>
+            <br><br>
+            <input type="button" value="Submit" id="savegoal">
+        </div>
+        <br>
+        <div id="current-goal" style="display: none;">
+            <h2 id="current-goal-name"></h2>
+            <div id="current-goal-details"></div>
+            <textarea name="" id="challangename" rows="4" cols="40" 
+            placeholder="enter challange, example i am feeling bored"
+            ></textarea>
+            <br><br>
+            <label for="isQuit">Quit?</label>&nbsp;
+            <input type="checkbox" id="isQuit">
+            &nbsp;&nbsp;
+            <input type="button" value="Add Challange" id="addchallange">
+            <button id="complete-goal" onclick="markGoalAsCompleted()">Mark Goal as Completed</button>
+
+            
+            <div id="challenges-list" style="display: none;">
+                <h3>challanges list</h3>
+                <ul id="challanges"></ul> 
+            </div>
+
+        </div>
+        <br>
+        
+        <div id="goal-history" style="display: none;">
+            <hr>
+            <h3>Goal History</h3>
+            <ul id="goal-history-list"></ul>
+            <h3 id="goalChallangeHeading" style="display: none;"></h3>
+            <ul id="goal-challange-history">
+            </ul>
+        </div>
+
+        
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

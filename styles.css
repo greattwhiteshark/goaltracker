@@ -1,0 +1,119 @@
+@media (max-width: 600px) {
+    body {
+        font-size: 14px; /* Adjust font size */
+        background-color: lightpink;
+    }
+    #goal-form {
+        padding: 10px; /* Reduce padding */
+    }
+
+    #goalname, #challangename {
+        width: 90%; /* Make input fields wider on smaller screens */
+    }
+
+    #savegoal, #addchallange, #complete-goal {
+        width: 90%; /* Make buttons wider on smaller screens */
+    }
+
+    #app {
+        margin: 5px; /* Reduce margin for mobile */
+    }
+}
+
+button, .goal-history-item {
+    padding: 10px 20px; /* Increase padding for touch targets */
+    font-size: 16px; /* Larger font for easier reading */
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif; /* Replace 'Roboto' with your chosen font */
+}
+
+#app {
+    /* border: 1px solid blue; */
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+#appheading {
+    background-color: lightskyblue;
+    border-radius: 20px;
+    padding: 8px;
+}
+#goalname , #challangename{
+    border-radius: 20px;
+    padding: 5px;
+    width: 80%;
+    max-width: 400px;
+}
+#savegoal {
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    background-color: lightgreen;
+    /* width: 25%; */
+}
+#addchallange {
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    background-color: skyblue;
+}
+#complete-goal {
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    background-color: lightgreen;
+}
+.success {
+    background-color: lightgreen;
+    list-style-type: none;
+    padding: 10px;
+    margin: 2px;
+    border-radius: 20px;
+}
+.failed {
+    background-color: tomato;
+    list-style-type: none;
+    padding: 10px;
+    margin: 2px;
+    border-radius: 20px;
+}
+
+mark {
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    background-color: lightgreen;
+}
+
+#goal-history-list li {
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.goal-history-item.success {
+    color: green;
+}
+
+.goal-history-item.failed {
+    color: red;
+}
+
+.goal-history-item {
+    background-color: skyblue;
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 50;
+}
+#savegoal, #addchallange, #complete-goal {
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    width: 80%; /* Adjust width for mobile */
+    max-width: 150px; /* Set a maximum width */
+}
+
+
