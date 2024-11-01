@@ -1,7 +1,6 @@
 @media (max-width: 600px) {
     body {
         font-size: 14px; /* Adjust font size */
-        background-color: lightpink;
     }
     #goal-form {
         padding: 10px; /* Reduce padding */
@@ -18,6 +17,20 @@
     #app {
         margin: 5px; /* Reduce margin for mobile */
     }
+    #addchallange {
+        border-radius: 20px;
+        padding: 10px;
+        border: none;
+        background-color: skyblue;
+        width: 112px;
+    }
+    
+    #complete-goal {
+        border-radius: 20px;
+        padding: 10px;
+        border: none;
+        background-color: lightgreen;
+        max-width: 50%;
 }
 
 button, .goal-history-item {
@@ -107,13 +120,6 @@ mark {
     padding: 10px;
     border-radius: 20px;
     width: 50;
-}
-#savegoal, #addchallange, #complete-goal {
-    border-radius: 20px;
-    padding: 10px;
-    border: none;
-    width: 80%; /* Adjust width for mobile */
-    max-width: 150px; /* Set a maximum width */
 }
 
 
