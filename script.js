@@ -61,6 +61,7 @@ savegoalButton.addEventListener('click', () => {
             goalState: 'inprogress'
         };
         saveGoal (currentGoal);
+        showAllGoals(); 
     }
 });
 
@@ -70,7 +71,6 @@ function clearData() {
 
 }
 
-
 function saveGoal(goal) {
     const transaction = db.transaction('goals', 'readwrite');
     const goalStore = transaction.objectStore('goals');
@@ -78,16 +78,14 @@ function saveGoal(goal) {
 
     request.onsuccess = (event) => {
         goal.goalId = event.target.result; // Assign the generated ID to the goal
-        currentGoal = goal; // Set currentGoal to the saved goal with ID
-        goalForm.style.display = 'none';
-        currentGoalForm.style.display = 'block';
-        currentGoalName.innerHTML = `Your current goal is <span id="current-goal-details-btn" onclick="showCurrentGoalDetails()" style="background-color: lightgreen; border-radius: 20px; padding: 8px;">${goal.goalName}</span>`;
+        showCurrentGoalName(goal);
     };
 
     goalForm.style.display = 'none';
     currentGoalForm.style.display = 'block';
     currentGoalName.textContent = `Your current goal is ${goal.goalName}`;
     goalNameInput.value = '';
+    challengesList.classList.add('d-none');
 }
 
 addchallangeBtn.addEventListener('click', () => {
@@ -107,11 +105,11 @@ addchallangeBtn.addEventListener('click', () => {
             currentGoal.goalState = 'failed';
             goalForm.style.display = 'block';
             currentGoalForm.style.display='none';
-            challengesList.style.display='none';
             showAllGoals(); 
         }
         updateGoal(currentGoal);
         showChallanges(currentGoal);
+        showAllGoals();
         clearData();
     }
 });
@@ -123,9 +121,13 @@ const transaction = db.transaction('goals', 'readwrite');
 }
 
 function showChallanges(goal) {
-    document.getElementById('challanges').innerHTML= '';
-    challengesList.style.display = 'block';
-    challanges.innerHTML = '';
+    const challengesList = document.getElementById('challenges-list');
+    challengesList.value = '';
+    const challanges = document.getElementById('challanges');
+    
+    challanges.innerHTML = ''; // Clear previous challenges
+    challengesList.classList.remove('d-none'); // Show challenges list
+    
     let prevChallangeTime = null;
     let timeDifference = '';
     
@@ -141,10 +143,12 @@ function showChallanges(goal) {
         listItem.textContent = `${challenge.challengename} - ${new Date(challenge.startTime).toLocaleString()} -
          ${challenge.isSuccess ? 'Success' : 'Failed'} - time gap: ${timeDifference}`;
         
-        listItem.classList.add(challenge.isSuccess ? 'success' : 'failed');
-        document.getElementById('challanges').appendChild(listItem);
+        // Add Bootstrap list group classes
+        listItem.classList.add('list-group-item', challenge.isSuccess ? 'list-group-item-success' : 'list-group-item-danger');
+        challanges.appendChild(listItem);
     });
 }
+
 
 function getTimeDifference(startTime1, startTime2) {
     const start1 = new Date(startTime1);
@@ -177,8 +181,18 @@ function getTimeDifference(startTime1, startTime2) {
 
 function showCurrentGoalDetails() {
     currentGoalDetails.innerHTML = `Goal <mark>${currentGoal.goalName}</mark> was started on <mark>${new Date(currentGoal.startTime).toLocaleString()} </mark> <br> <br>`;
+    currentGoalDetails.classList.add('d-flex', 'justify-content-center', 'align-items-center', 'mx-auto');
+    currentGoalDetails.classList.toggle('d-none');
 }
 
+
+function showCurrentGoalName(goal)  {
+    currentGoal = goal;
+    goalForm.style.display = 'none';
+    currentGoalForm.style.display = 'block';
+    currentGoalName.innerHTML = `Your current goal is <button id="current-goal-details-btn" onclick="showCurrentGoalDetails()" class="btn btn-success rounded">${goal.goalName}</button>`;
+
+}
 
   // Function to check for an ongoing goal on app load
   function checkOngoingGoal() {
@@ -191,11 +205,7 @@ function showCurrentGoalDetails() {
         const ongoingGoal = goals.find(goal => goal.goalState == 'inprogress');
 
         if (ongoingGoal) {
-            // Assign ongoing goal to currentGoal and display it
-            currentGoal = ongoingGoal;
-            goalForm.style.display = 'none';
-            currentGoalForm.style.display = 'block';
-            currentGoalName.innerHTML = `Your current goal is <span id="current-goal-details-btn" onclick="showCurrentGoalDetails()" style="background-color: lightgreen; border-radius: 20px; padding: 8px;">${currentGoal.goalName}</span>`;
+            showCurrentGoalName(ongoingGoal);
             showChallanges(currentGoal);
         } else {
             // No ongoing goal, show the goal input form
@@ -222,9 +232,9 @@ function showAllGoals() {
         goalHistoryList.innerHTML = ''; // Clear previous list
 
         if (goals.length > 0) {
-            goalsHistoryDiv.style.display = 'block'; // Show the heading or container
+            goalsHistoryDiv.classList.remove('d-none');// Show the heading or container
         } else {
-            goalsHistoryDiv.style.display = 'none'; // Hide the heading or container
+            goalsHistoryDiv.classList.add('d-none');// Hide the heading or container
 
         }
 
@@ -233,18 +243,18 @@ function showAllGoals() {
             const listItem = document.createElement('li');
 
             listItem.textContent = `${goal.goalName} - ${goal.goalState}`;
-            listItem.classList.add('goal-history-item');
+            listItem.classList.add('list-group-item');
             if(goal.goalState == 'inprogress') {
-                listItem.classList.add('goal-history-item-inprogress');
+                listItem.classList.add('list-group-item-primary');
             } else if(goal.goalState == 'failed') {
-                listItem.classList.add('goal-history-item-failed');
+                listItem.classList.add('list-group-item-danger');
 
             } else if(goal.goalState == 'success'){
-                listItem.classList.add('goal-history-item-success');
+                listItem.classList.add('list-group-item-success');
             }
             
             // Attach an event listener to each goal item to display challenges
-            listItem.addEventListener('click', () => showChallenges(goal));
+            listItem.addEventListener('click', () => showChallengesOfGoal(goal));
             goalHistoryList.appendChild(listItem);
         });
     };
@@ -255,14 +265,16 @@ function showAllGoals() {
 }
 
 // Function to show challenges for the selected goal
-function showChallenges(goal) {
+
+
+function showChallengesOfGoal(goal) { 
     
-    goalChallangeHeading.style.display = 'block';
+    goalChallangeHeading.classList.remove('d-none');
     goalChallangeHeading.innerHTML = `
         Challenges faced in ${goal.goalName}
     `;
 
-    goalChallangeData.style.display = 'block';
+    goalChallangeData.classList.remove('d-nones');
     goalChallangeData.innerHTML = ''; // Clear existing challenges list
 
     let prevChallengeTime = null;
@@ -274,7 +286,7 @@ function showChallenges(goal) {
         const listItem = document.createElement('li');
         listItem.textContent = `${challenge.challengename} - ${new Date(challenge.startTime).toLocaleString()} - 
             ${challenge.isSuccess ? 'Success' : 'Failed'} - time gap: ${timeDifference}`;
-        listItem.classList.add(challenge.isSuccess ? 'success' : 'failed');
+        listItem.classList.add('list-group-item', challenge.isSuccess ? 'list-group-item-success' : 'list-group-item-danger');
         
         goalChallangeData.appendChild(listItem); // Add challenge to the list
     });
@@ -292,5 +304,6 @@ function markGoalAsCompleted() {
         goalForm.style.display = 'block';
         checkOngoingGoal(); // Check for an ongoing goal on app load
         showAllGoals(); // Load and display goal history
+        clearData();
     }
 }
