@@ -36,32 +36,39 @@
             <div class="row my-3">
                 <div class="col-sm-12">
                     <textarea name="" id="challangename" rows="4"
-                    placeholder="enter challange, example i am feeling bored"
+                    placeholder="enter any remarks"
                     class="form-control"
                     style="border-radius: 20px;"
                     ></textarea>
                 </div>
             </div>
             <div class="row my-3 justify-content-center">
-                <div class="col-sm-4 text-danger d-flex align-items-center justify-content-center">
-                    <label for="isQuit" class="mr-2">Quit?</label>&nbsp
-                    <input type="checkbox" id="isQuit">
-                </div>
-                <div class="col-sm-4 d-flex justify-content-center">
-                    <input type="button" value="Add Challenge" id="addchallange" class="btn btn-primary custom-rounded-button my-2">
-                </div>
-                <div class="col-sm-4 d-flex justify-content-center">
-                    <button id="complete-goal" onclick="markGoalAsCompleted()" class="btn btn-success custom-rounded-button">Completed</button>
-                </div>
+                
+                <div class="row my-3">
+                    <div class="col-sm-12 d-flex flex-column align-items-center">
+                      
+                      <!-- Select Menu -->
+                      <div class="my-2 w-50">
+                        <select id="selectedAction" class="form-select">
+                          <option value="">Select an action</option>
+                          <option value="milestone">Milestone</option>
+                          <option value="challenge">Challenge</option>
+                          <option value="planned break">Planned Break</option>
+                          <option value="continue">Continue</option>
+                          <option value="quit">Quit</option>
+                          <option value="completed">Completed Successfully</option>
+                        </select>
+                      </div>
+                  
+                      <!-- Submit Button -->
+                      <button id="multiple-action-btn" class="btn btn-primary btn-lg custom-rounded-button" >Ok</button>
+                  
+                    </div>
+                  </div>
+                  
             </div>
             
            
-            
-            <!-- <div id="challenges-list" style="display: none;">
-                <h3>challanges list</h3>
-                <ul id="challanges"></ul> 
-            </div> -->
-
             <div class="container my-3">
                 <div id="challenges-list" class="d-none">
                     <h3 class="text-center">Challenges List</h3>
