@@ -355,6 +355,23 @@ function showChallengesOfGoal(goal) {
     });
 }
 
+//dark mode
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleDarkModeBtn = document.getElementById("toggleDarkMode");
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
+  
+    if (isDarkMode) {
+      document.body.classList.add("dark-mode");
+    }
+  
+    toggleDarkModeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const currentlyDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("darkMode", currentlyDark);
+    });
+  });
+  
+
 
 
 
