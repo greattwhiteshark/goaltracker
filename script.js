@@ -186,26 +186,26 @@ function showChallanges(goal) {
         if (action.actionType == CHALLENGE) {
             timeDifference = getTimeDifference(prevChallangeTime, action.startTime);
             prevChallangeTime = action.startTime;
-            listItem.innerHTML = `<span class="badge bg-primary ms-2">${action.actionType}</span> ${action.remarks} - ${new Date(action.startTime).toLocaleString()} -  time between two challenges: ${timeDifference}`;
+            listItem.innerHTML = `<span class="badge bg-danger ms-2">${action.actionType}</span> ${action.remarks} - ${new Date(action.startTime).toLocaleString()} -  time between two challenges: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-primary');
         } else if (action.actionType == MILESTONE) {
             timeDifference = getTimeDifference(prevMileStoneTime, action.startTime);
             prevMileStoneTime = action.startTime;
-            listItem.innerHTML = `<span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time between two mile stones: ${timeDifference}`;
+            listItem.innerHTML = `<span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time between two mile stones: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-success');
         } else if (action.actionType == BREAK) {
             prevBreakTime = action.startTime;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
             listItem.classList.add('list-group-item', 'list-group-item-light');
         } else if (action.actionType == CONTINUE) {
             timeDifference = getTimeDifference(prevBreakTime, action.startTime);
             prevBreakTime = null;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - You have taken break for : ${timeDifference}`;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - You have taken break for : ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-secondary');
         } else if (action.actionType == QUIT) {
             timeDifference = getTimeDifference(prevChallangeTime, action.startTime);
             prevChallangeTime = action.startTime;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time gap: ${timeDifference}`;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time gap: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-danger');
         } 
         
@@ -258,11 +258,12 @@ function showCurrentGoalDetails() {
     currentGoalDetails.classList.toggle('d-none');
 }
 
-function showCurrentGoalName(goal) {
+function showCurrentGoalName(goal)  {
     currentGoal = goal;
     goalForm.style.display = 'none';
     currentGoalForm.style.display = 'block';
-    currentGoalName.textContent = `Your current goal is ${goal.goalName}`;
+    currentGoalName.innerHTML = `Your current goal is <button id="current-goal-details-btn" onclick="showCurrentGoalDetails()" class="btn btn-success rounded">${goal.goalName}</button>`;
+
 }
 
 // Function to display all goals in the history section
@@ -311,6 +312,9 @@ function showAllGoals() {
 }
 
 function showChallengesOfGoal(goal) { 
+
+    const goalHistoryList = document.getElementById('goal-challange-history');
+    goalHistoryList.innerHTML = ''; // Clear previous list
     
     goalChallangeHeading.classList.remove('d-none');
     goalChallangeHeading.innerHTML = `
@@ -328,26 +332,26 @@ function showChallengesOfGoal(goal) {
         if (action.actionType == CHALLENGE) {
             timeDifference = getTimeDifference(prevChallangeTime, action.startTime);
             prevChallangeTime = action.startTime;
-            listItem.innerHTML = `<span class="badge bg-primary ms-2">${action.actionType}</span> ${action.remarks} - ${new Date(action.startTime).toLocaleString()} -  time between two challenges: ${timeDifference}`;
+            listItem.innerHTML = `<span class="badge bg-danger ms-2">${action.actionType}</span> ${action.remarks} - ${new Date(action.startTime).toLocaleString()} -  time between two challenges: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-primary');
         } else if (action.actionType == MILESTONE) {
             timeDifference = getTimeDifference(prevMileStoneTime, action.startTime);
             prevMileStoneTime = action.startTime;
-            listItem.innerHTML = `<span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time between two mile stones: ${timeDifference}`;
+            listItem.innerHTML = `<span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time between two mile stones: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-success');
         } else if (action.actionType == BREAK) {
             prevBreakTime = action.startTime;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
             listItem.classList.add('list-group-item', 'list-group-item-light');
         } else if (action.actionType == CONTINUE) {
             timeDifference = getTimeDifference(prevBreakTime, action.startTime);
             prevBreakTime = null;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - You have taken break for : ${timeDifference}`;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - You have taken break for : ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-secondary');
         } else if (action.actionType == QUIT) {
             timeDifference = getTimeDifference(prevChallangeTime, action.startTime);
             prevChallangeTime = action.startTime;
-            listItem.innerHTML = `- <span class="badge bg-primary ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time gap: ${timeDifference}`;
+            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} - time gap: ${timeDifference}`;
             listItem.classList.add('list-group-item', 'list-group-item-danger');
         } 
         
@@ -355,22 +359,7 @@ function showChallengesOfGoal(goal) {
     });
 }
 
-//dark mode
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleDarkModeBtn = document.getElementById("toggleDarkMode");
-    const isDarkMode = localStorage.getItem("darkMode") === "true";
-  
-    if (isDarkMode) {
-      document.body.classList.add("dark-mode");
-    }
-  
-    toggleDarkModeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      const currentlyDark = document.body.classList.contains("dark-mode");
-      localStorage.setItem("darkMode", currentlyDark);
-    });
-  });
-  
+
 
 
 
