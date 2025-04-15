@@ -195,7 +195,7 @@ function showChallanges(goal) {
             listItem.classList.add('list-group-item', 'list-group-item-success');
         } else if (action.actionType == BREAK) {
             prevBreakTime = action.startTime;
-            listItem.innerHTML = `- <span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
+            listItem.innerHTML = `<span class="badge bg-danger ms-2">${action.actionType}</span>  ${action.remarks} - ${new Date(action.startTime).toLocaleString()} `;
             listItem.classList.add('list-group-item', 'list-group-item-light');
         } else if (action.actionType == CONTINUE) {
             timeDifference = getTimeDifference(prevBreakTime, action.startTime);
@@ -262,7 +262,7 @@ function showCurrentGoalName(goal)  {
     currentGoal = goal;
     goalForm.style.display = 'none';
     currentGoalForm.style.display = 'block';
-    currentGoalName.innerHTML = `Your current goal is <button id="current-goal-details-btn" onclick="showCurrentGoalDetails()" class="btn btn-success rounded">${goal.goalName}</button>`;
+    currentGoalName.innerHTML = `Your current goal is <span id="current-goal-details-btn" onclick="showCurrentGoalDetails()" class="badge bg-success ms-2">${goal.goalName}</span>`;
 
 }
 
